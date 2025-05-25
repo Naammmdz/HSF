@@ -12,7 +12,7 @@
             <!-- Ví dụ URL kết nối. Hãy thay đổi tên máy chủ, cổng và tên DB của bạn -->
             <property name="jakarta.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;databaseName=HSF302;encrypt=true;trustServerCertificate=true"/>
             <property name="jakarta.persistence.jdbc.user" value="sa"/>
-            <property name="jakarta.persistence.jdbc.password" value="sa123456"/>
+            <property name="jakarta.persistence.jdbc.password" value="12345"/>
 
             <!-- Cấu hình Hibernate làm provider -->
             <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect"/>

@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        insertStudent(); //gọi hàm insert để thêm mới sinh viên vào CSDL
+//        insertStudent(); //gọi hàm insert để thêm mới sinh viên vào CSDL
         selectAllStudents(); //gọi hàm select để lấy hết sinh viên trong CSDL
     }
 
