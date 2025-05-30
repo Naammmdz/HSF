@@ -18,7 +18,7 @@
             <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect"/>
 
             <!-- Tùy chọn: tự động tạo/bổ sung bảng: create, update. Chỉ dùng trong dev, không dùng ở production -->
-            <property name="hibernate.hbm2ddl.auto" value="create"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
 
             <!-- Hiển thị SQL khi chạy (tùy chọn) -->
             <property name="hibernate.show_sql" value="true"/>

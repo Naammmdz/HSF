@@ -17,8 +17,62 @@ public class Main {
     public static void main(String[] args) {
 //        insertStudent(); //gọi hàm insert để thêm mới sinh viên vào CSDL
 //        selectAllStudents(); //gọi hàm select để lấy hết sinh viên trong CSDL
-        insertLecturer();
-        getAllLecturers();
+//        insertLecturer();
+//        getAllLecturers();
+//        searchLecturer();
+//          remove();
+        update();
+        findById();
+    }
+
+    //KHI LÀM CÁC HÀNH ĐỘNG XÓA SỬA THÊM ẢNH HỬNG VÀ THAY ĐỔI HIỆN TRẠNG DB
+    //TA PHẢI CHO NÓ VÀO TRANSACTION ĐỂ THEO DÕI: HOẶC TẤT CẢ, HOẶC KHÔNG GÌ CẢ
+    //NGUYÊN LÍ DO ALL OR NOTHING: ACID
+
+    public static void update() {
+        EntityManager em = emf.createEntityManager();
+
+        em.getTransaction().begin();
+        //tìm theo key chỉ trả ra 1 dòng
+        Lecturer lecturer = em.find(Lecturer.class, 1); //GIÁ TRỊ OK MUỐN TÌM
+        Student student = em.find(Student.class, "SE2"); //ID STUDENT LÀ CHUỖI
+
+        student.setGpa(9.9);
+        em.getTransaction().commit(); //khóa sổ 2 hành động
+        System.out.println("Upadte successfully");
+    }
+
+    public static void remove() {
+        EntityManager em = emf.createEntityManager();
+
+        em.getTransaction().begin();
+        //tìm theo key chỉ trả ra 1 dòng
+        Lecturer lecturer = em.find(Lecturer.class, 1); //GIÁ TRỊ OK MUỐN TÌM
+        Student student = em.find(Student.class, "SE2"); //ID STUDENT LÀ CHUỖI
+
+        em.remove(lecturer);
+        em.remove(student);
+        em.getTransaction().commit(); //khóa sổ 2 hành động
+        System.out.println("Delete successfully");
+    }
+
+    //EntityManager là ông sếp quản lí các entity ~ chính là các class có @Entity và
+    //quản lí các object tạo từ class ENtity: sếp có thể thêm persit(); xóa remove();
+    //cập nhật merge(); tìm theo PK find(): lí do có hàm tìm theo key, vì ta luôn có nhu càu thao tác trên 1 dòng/row/record cụ thể trong table
+    /*
+        SWP admin, có màn hình quản lí user, phân loại, show table có nhiều dòng, phân trang, flter, cối dòng có cột Action: Update | Delete
+        -> xử lí đúng 1 dòng đang select -> theo PK
+        Ngoài ra có hàm createQuery() tìm linh hoạt theo điều kiện nào đó
+     */
+
+    public static void findById() {
+        EntityManager em = emf.createEntityManager();
+        //tìm theo key chỉ trả ra 1 dòng
+        Lecturer lecturer = em.find(Lecturer.class, 1); //GIÁ TRỊ OK MUỐN TÌM
+        Student student = em.find(Student.class, "SE2"); //ID STUDENT LÀ CHUỖI
+
+        System.out.println("Lecturer info:" + lecturer); //toString
+        System.out.println("Student info:" + student); //toString
     }
 
     //Học thêm về JPQL: JAVA PERSISTENCE QUERY LANGUAGE
@@ -35,7 +89,35 @@ public class Main {
 
     //WHERE
     //SQL: SELECT x FROM Lecturer WHERE Salary = 200000000// tên cột trong table
-    //JPQL: SELECT x FROM Lecturer WHERE x
+    //JPQL: SELECT x FROM Lecturer WHERE x.salary =200000000 //tên field trong class
+    //                                      x là biến object!!!, không phải cột trong table!!!
+    //QUẺ ĐỘNG THAM SỐ WHERE: TRUYỀN TỪ WEB PAGE/FORM -> ĐẾN ĐÂY CÓ 1 VALUE NÀO ĐÓ
+    //JPQL: SELECT x FROM Lecturer x WHERE x>salary = p:Salary
+    //CÓ QUYỀN DÙNG THÊM AND, OR NHƯ SQL CHUẨN
+    //CÓ DÙNG TOÁN TỬ LIKE SO SÁNH GẦN ĐÚNG GIÁ TRỊ CHUỖI
+    //SQL CHUẨN: SELECT * FROM Lecturer WHERE Name LIKE '%AN%' -- TÊN CHỨA CHỮ AN
+    //                                              LIKE 'AN%' -- TÊN BẮT ĐẦU CHỮ AN
+    //PSQL: SELECT lec FROM Lecturer lec WHERE lec.name LIKE p:Name
+    //setParameter("pName", "%AN%")
+
+    public static void searchLecturer() {
+//        EntityManager em = emf.createEntityManager();
+//        List<Lecturer> result = em.createQuery("SELECT x FROM Lecturer x WHERE x.salary = :pSalary", Lecturer.class)
+//                .setParameter("pSalary", 100000000)
+//                .getResultList();
+
+        EntityManager em = emf.createEntityManager();
+        List<Lecturer> result = em.createQuery("SELECT x FROM Lecturer x WHERE x.yob = :pYob", Lecturer.class)
+                .setParameter("pYob", 1989)
+                .getResultList();
+
+        //nếu hàm trả vè object ta có quyền chấm tiếp thay vì khai báo biến để hứng sau đó biến chấm tiếp
+        System.out.println("Total lecturers: " + result.size() + ":");
+        for (Lecturer lecturer : result) {
+            System.out.println(lecturer);
+        }
+    }
+
     public static void getAllLecturers() {
         EntityManager em = emf.createEntityManager();
         // luôn cần có ngừời quản lí các entity
