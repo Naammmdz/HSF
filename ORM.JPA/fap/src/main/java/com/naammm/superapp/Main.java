@@ -21,7 +21,7 @@ public class Main {
 //        getAllLecturers();
 //        searchLecturer();
 //          remove();
-        update();
+//        update();
         findById();
     }
 
