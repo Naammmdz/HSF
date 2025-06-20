@@ -1,6 +1,9 @@
-package org.naammm.superapp.entity.bidirectional;
+package org.naammm.superapp.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "Student")
@@ -19,55 +22,49 @@ public class Student {
     @Column(name = "Gpa")
     private double gpa;
 
-    //SV THUỘC VỀ 1 MAJOR TẠI 1 THỜI ĐIỂM, 1 BIẾN MAJOR MÀ THOY, KHÔNG PHẢI LÀ LIST NHƯ BÊN KIA
+    //constructor rỗng, full tham số. Nếu key tự tăng thì key ko đc đưa vào
+    //get()/
 
-    //cả Major và Student đều có quyền khai báo
-    //JoinColumn, nếu dùng uni-directional relationship
-    @ManyToOne
-    @JoinColumn(name = "MajorId", referencedColumnName = "Id")
-    private Major major;
 
-    public Major getMajor() {
-        return major;
-    }
-    public void setMajor(Major major) {
-        this.major = major;
+    public Student() {
     }
 
-    public Student() {}
     public Student(String id, String name, int yob, double gpa) {
         this.id = id;
         this.name = name;
         this.yob = yob;
         this.gpa = gpa;
     }
+
     public String getId() {
         return id;
     }
+
     public void setId(String id) {
         this.id = id;
     }
+
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
+
     public int getYob() {
         return yob;
     }
+
     public void setYob(int yob) {
         this.yob = yob;
     }
+
     public double getGpa() {
         return gpa;
     }
+
     public void setGpa(double gpa) {
         this.gpa = gpa;
     }
-    @Override
-    public String toString() {
-        return String.format("|%2s|%-40s|%4d|%4.1f|", id, name, yob, gpa);
-    }
-
 }

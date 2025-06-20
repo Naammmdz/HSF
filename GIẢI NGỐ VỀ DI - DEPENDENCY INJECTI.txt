@@ -1,0 +1,48 @@
+GIẢI NGỐ VỀ DI - DEPENDENCY INJECTION
+> TA SẼ HỌC NHỮNG MÓN
+- TIGHT COUPLING, LOOSE COUPLING
+- S, O, D (S.O.L.I.D)
+- IoC (INVER
+
+
+I. DEPENDENCY LÀ GÌ?
+1. NẾU CLASS A KHAI BÁO BIẾN THUỘC CLASS B, CẦN B ĐỂ GIÚP CÔNG VIỆC GÌ ĐÓ CHO ẦM B CHUYÊN TRÁC, B GIỎI, THÌ B GỌI LÀ DÊPNDENCY CỦA A
+NÓI CÁCH KHÁC A PHỤ THUỘC VÀO B, THÌ B LÀ DEPENDENCY CỦA A
+
+public class A{
+	B objB; //objBlaf obj, thuộc, được clone từ class B
+		//B được gọi là dependency của A, A phụ thuộc vào B để làm việc gì đó
+}
+
+public class B{ //giỏi việc nào đố, chuên việc nò đó
+	//...
+	void doSomething() {...}
+}
+
+2. DEPENDENCY CÒN LÀ CÁC THƯ VIỆN LẬP TRÌNH (CHẲNG QUA GỒM BÊN TRONG NHIỀU CLASS LÀM VIỆC GÌ ĐÓ RẤT GIỎI), TA CÓ JDBC DEPENDENCY, JUNIT DEPENDENCY, LOMBOK DEPENDENCY, HIBERNAT, JPA DEPENDENCY
+
+3. A PHỤ THUỘC VÀO B, B LÀ DEPENDENCY CỦA A, TỨC LÀ 2 CLASS CÓ GẮN KẾT, CẦN NHAU (A CẦN B ĐÚNG HƠN) GỌI LÀ COUPLING
+- GẮN KẾT CHẶT CHẼ HAY LỎNG LẺO
+
+II. TIGHT COUPLING, LOOSE COUPLING - CHẮC HCAWNS PHẢI DÍNH DÁNG DEPENDENCY, CLASS NÀY CẦN CLASS KIA
+1.TIGHT COUPLING - GẮN KẾT, PHỤ THUỘC CHẶT CHẼ
+- CLASS A CẦN CLASS B, QUẢN LÍ LUÔN VÒNG ĐỜI OBJECT CLASS B (TẠO, HỦY) TRONG LÒNG CLASS A
+
+public static void main() {
+	A objA = new A();
+
+public class A {
+	B objB = new B(); //tight coupling
+}
+
+public class B { //giỏi việc nào đó, chuyên việc nào đó
+	//...
+	void doSomething() {...}
+}
+
+* VẤN ĐÈ CỦA TIGHT COUPLING
+- A CHỈ CHƠI VỚI B
+- KHI B CHƯA CODE XONG, THÌ KHÓ CÓ THỂ RUN A
+- NẾU MUỐN THAY THẾ B BẰNG B' TƯƠNG ĐƯƠNG VỀ KHẢ NĂNG GIẢI QUYẾT VẤN ĐỀ
+(THAY HIBERNATE BẰNG ECLIPSELINK???), THÌ CHẮC CHẮN PHẢI SỬA CODE CỦA A!!!
+- 
