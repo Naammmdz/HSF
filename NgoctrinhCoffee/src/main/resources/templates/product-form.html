@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create | Update coffee product</title>
+</head>
+<body>
+    <h1>Create | Update coffee product</h1>
+    <h2 th:text="${product.getName()}"></h2>
+    <!-- Cần 1 form để nhấn nút save thì lưu toàn bộ info sản phẩm -->
+
+<!--    <form th:action="@{/update}" th:object="${product}" method="post"></form>-->
+    <form th:action="@{/products/edit}" method="get">
+        <p>
+            <label for="name">Product name:</label>
+            <input type="text" name="name" th:value="${product.getName()}" id="name" />
+        </p>
+
+        <p>
+            <label for="price">Product price:</label>
+            <input type="text" name="price" th:value="${product.getPrice()}" id="price" />
+        </p>
+
+        <p>
+            <label for="id">Product id:</label>
+            <input type="text" name="id" th:value="${product.getId()}" id="id" />
+        </p>
+
+        <p>
+            <button type="submit">Update</button>
+        </p>
+    </form>
+
+
+</body>
+</html>
